@@ -12,6 +12,7 @@ import cv2
 
 from rich.progress import track
 from .helper import prefix
+from .rprint import rlog as log
 from .rprint import rprint as print
 
 
@@ -131,9 +132,14 @@ def change_video_fps(input_file, output_file, fps=20, codec='libx264', crf=5):
     exec_cmd(cmd)
 
 
-def get_fps(filepath):
-    import ffmpeg
-    probe = ffmpeg.probe(filepath)
-    video_stream = next((stream for stream in probe['streams'] if stream['codec_type'] == 'video'), None)
-    fps = eval(video_stream['avg_frame_rate'])
+def get_fps(filepath, default_fps=25):
+    try:
+        fps = cv2.VideoCapture(filepath).get(cv2.CAP_PROP_FPS)
+
+        if fps in (0, None):
+            fps = default_fps
+    except Exception as e:
+        log(e)
+        fps = default_fps
+
     return fps

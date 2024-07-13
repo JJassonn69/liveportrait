@@ -9,7 +9,7 @@ from .live_portrait_pipeline import LivePortraitPipeline
 from .utils.io import load_img_online
 from .utils.rprint import rlog as log
 from .utils.crop import prepare_paste_back, paste_back
-from .utils.camera import get_rotation_matrix
+# from .utils.camera import get_rotation_matrix
 
 def update_args(args, user_args):
     """update the args according to user inputs
@@ -33,7 +33,7 @@ class GradioPipeline(LivePortraitPipeline):
         flag_relative_input,
         flag_do_crop_input,
         flag_remap_input,
-        ):
+    ):
         """ for video driven potrait animation
         """
         if input_image_path is not None and input_video_path is not None:
@@ -91,7 +91,7 @@ class GradioPipeline(LivePortraitPipeline):
             # gr.Info("Upload successfully!", duration=2)
             inference_cfg = self.live_portrait_wrapper.cfg
             ######## process source portrait ########
-            img_rgb = load_img_online(input_image, mode='rgb', max_dim=1280, n=16)
+            img_rgb = load_img_online(input_image, mode='rgb', max_dim=1280, n=1) # n=1 means do not trim the pixels
             log(f"Load source image from {input_image}.")
             crop_info = self.cropper.crop_single_image(img_rgb)
             if flag_do_crop:
@@ -99,7 +99,7 @@ class GradioPipeline(LivePortraitPipeline):
             else:
                 I_s = self.live_portrait_wrapper.prepare_source(img_rgb)
             x_s_info = self.live_portrait_wrapper.get_kp_info(I_s)
-            R_s = get_rotation_matrix(x_s_info['pitch'], x_s_info['yaw'], x_s_info['roll'])
+            # R_s = get_rotation_matrix(x_s_info['pitch'], x_s_info['yaw'], x_s_info['roll'])
             ############################################
             f_s_user = self.live_portrait_wrapper.extract_feature_3d(I_s)
             x_s_user = self.live_portrait_wrapper.transform_keypoint(x_s_info)

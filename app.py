@@ -116,6 +116,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
                 flag_relative_input = gr.Checkbox(value=True, label="relative motion")
                 flag_do_crop_input = gr.Checkbox(value=True, label="do crop")
                 flag_remap_input = gr.Checkbox(value=True, label="paste-back")
+    gr.Markdown(load_description("assets/gradio_description_animate_clear.md"))
     with gr.Row():
         with gr.Column():
             process_button_animation = gr.Button("🚀 Animate", variant="primary")

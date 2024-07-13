@@ -18,7 +18,7 @@ from .config.inference_config import InferenceConfig
 from .config.crop_config import CropConfig
 from .utils.cropper import Cropper
 from .utils.camera import get_rotation_matrix
-from .utils.video import images2video, concat_frames
+from .utils.video import images2video, concat_frames, get_fps
 from .utils.crop import _transform_img, prepare_paste_back, paste_back
 from .utils.retargeting_utils import calc_lip_close_ratio
 from .utils.io import load_image_rgb, load_driving_info, resize_to_limit
@@ -67,8 +67,12 @@ class LivePortraitPipeline(object):
         ############################################
 
         ######## process driving info ########
+        output_fps = 30 # default fps
         if is_video(args.driving_info):
             log(f"Load from video file (mp4 mov avi etc...): {args.driving_info}")
+            output_fps = int(get_fps(args.driving_info))
+            log(f'The FPS of {args.driving_info} is: {output_fps}')
+
             # TODO: 这里track一下驱动视频 -> 构建模板
             driving_rgb_lst = load_driving_info(args.driving_info)
             driving_rgb_lst_256 = [cv2.resize(_, (256, 256)) for _ in driving_rgb_lst]
@@ -177,13 +181,13 @@ class LivePortraitPipeline(object):
             frames_concatenated = concat_frames(I_p_lst, driving_rgb_lst, img_crop_256x256)
             # save (driving frames, source image, drived frames) result
             wfp_concat = osp.join(args.output_dir, f'{basename(args.source_image)}--{basename(args.driving_info)}_concat.mp4')
-            images2video(frames_concatenated, wfp=wfp_concat)
+            images2video(frames_concatenated, wfp=wfp_concat, fps=output_fps)
 
         # save drived result
         wfp = osp.join(args.output_dir, f'{basename(args.source_image)}--{basename(args.driving_info)}.mp4')
         if inference_cfg.flag_pasteback:
-            images2video(I_p_paste_lst, wfp=wfp)
+            images2video(I_p_paste_lst, wfp=wfp, fps=output_fps)
         else:
-            images2video(I_p_lst, wfp=wfp)
+            images2video(I_p_lst, wfp=wfp, fps=output_fps)
 
         return wfp, wfp_concat
