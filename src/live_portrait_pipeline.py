@@ -10,6 +10,7 @@ torch.backends.cudnn.benchmark = True # disable CUDNN_BACKEND_EXECUTION_PLAN_DES
 import cv2
 import numpy as np
 import pickle
+import os
 import os.path as osp
 from rich.progress import track
 
@@ -18,7 +19,7 @@ from .config.inference_config import InferenceConfig
 from .config.crop_config import CropConfig
 from .utils.cropper import Cropper
 from .utils.camera import get_rotation_matrix
-from .utils.video import images2video, concat_frames, get_fps
+from .utils.video import images2video, concat_frames, get_fps, add_audio_to_video, has_audio_stream
 from .utils.crop import _transform_img, prepare_paste_back, paste_back
 from .utils.retargeting_utils import calc_lip_close_ratio
 from .utils.io import load_image_rgb, load_driving_info, resize_to_limit
@@ -177,11 +178,19 @@ class LivePortraitPipeline(object):
 
         mkdir(args.output_dir)
         wfp_concat = None
+        flag_has_audio = has_audio_stream(args.driving_info)
+
         if is_video(args.driving_info):
             frames_concatenated = concat_frames(I_p_lst, driving_rgb_lst, img_crop_256x256)
             # save (driving frames, source image, drived frames) result
             wfp_concat = osp.join(args.output_dir, f'{basename(args.source_image)}--{basename(args.driving_info)}_concat.mp4')
             images2video(frames_concatenated, wfp=wfp_concat, fps=output_fps)
+            if flag_has_audio:
+                # final result with concat
+                wfp_concat_with_audio = osp.join(args.output_dir, f'{basename(args.source_image)}--{basename(args.driving_info)}_concat_with_audio.mp4')
+                add_audio_to_video(wfp_concat, args.driving_info, wfp_concat_with_audio)
+                os.replace(wfp_concat_with_audio, wfp_concat)
+                log(f"Replace {wfp_concat} with {wfp_concat_with_audio}")
 
         # save drived result
         wfp = osp.join(args.output_dir, f'{basename(args.source_image)}--{basename(args.driving_info)}.mp4')
@@ -189,5 +198,12 @@ class LivePortraitPipeline(object):
             images2video(I_p_paste_lst, wfp=wfp, fps=output_fps)
         else:
             images2video(I_p_lst, wfp=wfp, fps=output_fps)
+
+        ######### build final result #########
+        if flag_has_audio:
+            wfp_with_audio = osp.join(args.output_dir, f'{basename(args.source_image)}--{basename(args.driving_info)}_with_audio.mp4')
+            add_audio_to_video(wfp, args.driving_info, wfp_with_audio)
+            os.replace(wfp_with_audio, wfp)
+            log(f"Replace {wfp} with {wfp_with_audio}")
 
         return wfp, wfp_concat

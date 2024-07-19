@@ -17,7 +17,7 @@ from .rprint import rprint as print
 
 
 def exec_cmd(cmd):
-    subprocess.run(cmd, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    return subprocess.run(cmd, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
 
 
 def images2video(images, wfp, **kwargs):
@@ -143,3 +143,61 @@ def get_fps(filepath, default_fps=25):
         fps = default_fps
 
     return fps
+
+
+def has_audio_stream(video_path: str) -> bool:
+    """
+    Check if the video file contains an audio stream.
+
+    :param video_path: Path to the video file
+    :return: True if the video contains an audio stream, False otherwise
+    """
+    if osp.isdir(video_path):
+        return False
+
+    cmd = [
+        'ffprobe',
+        '-v', 'error',
+        '-select_streams', 'a',
+        '-show_entries', 'stream=codec_type',
+        '-of', 'default=noprint_wrappers=1:nokey=1',
+        f'"{video_path}"'
+    ]
+
+    try:
+        # result = subprocess.run(cmd, capture_output=True, text=True)
+        result = exec_cmd(' '.join(cmd))
+        if result.returncode != 0:
+            log(f"Error occurred while probing video: {result.stderr}")
+            return False
+
+        # Check if there is any output from ffprobe command
+        return bool(result.stdout.strip())
+    except Exception as e:
+        log(
+            f"Error occurred while probing video: {video_path}, "
+            "you may need to install ffprobe! (https://ffmpeg.org/download.html) "
+            "Now set audio to false!",
+            style="bold red"
+        )
+    return False
+
+
+def add_audio_to_video(silent_video_path: str, audio_video_path: str, output_video_path: str):
+    cmd = [
+        'ffmpeg',
+        '-y',
+        '-i', f'"{silent_video_path}"',
+        '-i', f'"{audio_video_path}"',
+        '-map', '0:v',
+        '-map', '1:a',
+        '-c:v', 'copy',
+        '-shortest',
+        f'"{output_video_path}"'
+    ]
+
+    try:
+        exec_cmd(' '.join(cmd))
+        log(f"Video with audio generated successfully: {output_video_path}")
+    except subprocess.CalledProcessError as e:
+        log(f"Error occurred: {e}")
