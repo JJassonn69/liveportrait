@@ -66,6 +66,7 @@ data_examples = [
     [osp.join(example_portrait_dir, "s10.jpg"), osp.join(example_video_dir, "d0.mp4"), True, True, True, True],
     [osp.join(example_portrait_dir, "s5.jpg"), osp.join(example_video_dir, "d18.mp4"), True, True, True, True],
     [osp.join(example_portrait_dir, "s7.jpg"), osp.join(example_video_dir, "d19.mp4"), True, True, True, True],
+    [osp.join(example_portrait_dir, "s22.jpg"), osp.join(example_video_dir, "d0.mp4"), True, True, True, True],
 ]
 #################### interface logic ####################
 
@@ -92,6 +93,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
                     [osp.join(example_portrait_dir, "s5.jpg")],
                     [osp.join(example_portrait_dir, "s7.jpg")],
                     [osp.join(example_portrait_dir, "s12.jpg")],
+                    [osp.join(example_portrait_dir, "s22.jpg")],
                 ],
                 inputs=[image_input],
                 cache_examples=False,
@@ -144,7 +146,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
                 flag_remap_input
             ],
             outputs=[output_image, output_image_paste_back],
-            examples_per_page=5,
+            examples_per_page=6,
             cache_examples=False,
         )
     gr.Markdown(load_description("assets/gradio_description_retargeting.md"), visible=True)
@@ -175,6 +177,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
                         [osp.join(example_portrait_dir, "s5.jpg")],
                         [osp.join(example_portrait_dir, "s7.jpg")],
                         [osp.join(example_portrait_dir, "s12.jpg")],
+                        [osp.join(example_portrait_dir, "s22.jpg")],
                     ],
                     inputs=[retargeting_input_image],
                     cache_examples=False,
