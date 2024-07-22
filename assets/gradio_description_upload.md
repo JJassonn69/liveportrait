@@ -13,12 +13,15 @@
 <div style="font-size: 1.2em; display: flex; justify-content: space-between;">
     <div style="flex: 1; text-align: center; margin-right: 20px;">
         <div style="display: inline-block;">
-            Step 1: upload a <strong>Source Portrait</strong> (any aspect ratio) ⬇️
+            Step 1: Upload a <strong>Source Portrait</strong> (any aspect ratio) ⬇️
         </div>
     </div>
     <div style="flex: 1; text-align: center; margin-left: 20px;">
         <div style="display: inline-block;">
-            Step 2: upload a <strong>Driving Video</strong> (1:1 aspect ratio) ⬇️
+            Step 2: Upload a <strong>Driving Video</strong> (1:1 aspect ratio) ⬇️
+        </div>
+        <div style="display: inline-block; font-size: 0.8em;">
+            Tips: Focus on the head, minimize shoulder movement, <strong>neutral expression</strong> in first frame.
         </div>
     </div>
 </div>
