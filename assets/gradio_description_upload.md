@@ -21,7 +21,7 @@
             Step 2: Upload a <strong>Driving Video</strong> (1:1 aspect ratio) ⬇️
         </div>
         <div style="display: inline-block; font-size: 0.8em;">
-            Tips: Focus on the head, minimize shoulder movement, <strong>neutral expression</strong> in first frame.
+            <strong>Tips:</strong> Focus on the head, minimize shoulder movement, <strong>neutral expression</strong> in first frame.
         </div>
     </div>
 </div>
