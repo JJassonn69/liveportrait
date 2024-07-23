@@ -15,6 +15,9 @@
         <div style="display: inline-block;">
             Step 1: Upload a <strong>Source Portrait</strong> (any aspect ratio) ⬇️
         </div>
+        <div style="display: inline-block; font-size: 0.8em;">
+            <strong>Note:</strong> To upload a Source Video, build Gradio locally. Instructions <a href="https://github.com/KwaiVGI/LivePortrait?tab=readme-ov-file#4-gradio-interface-"><strong>here</strong></a>.
+        </div>
     </div>
     <div style="flex: 1; text-align: center; margin-left: 20px;">
         <div style="display: inline-block;">
