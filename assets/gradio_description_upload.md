@@ -16,7 +16,7 @@
             Step 1: Upload a <strong>Source Portrait</strong> (any aspect ratio) ⬇️
         </div>
         <div style="display: inline-block; font-size: 0.75em;">
-            <strong>Note:</strong> To upload a source video, <a href="https://github.com/KwaiVGI/LivePortrait?tab=readme-ov-file#4-gradio-interface-"><strong>build Gradio locally</strong></a>. Windows users can use the <a href="https://huggingface.co/cleardusk/LivePortrait-Windows"><strong>one-click package</strong></a>.
+            <strong>Note:</strong> To upload a source video, <a href="https://github.com/KwaiVGI/LivePortrait?tab=readme-ov-file#4-gradio-interface-"><strong>build Gradio locally</strong></a>. Windows users can use the <a href="https://huggingface.co/cleardusk/LivePortrait-Windows"><strong>one-click package</strong></a>. Animals model <a href="https://github.com/KwaiVGI/LivePortrait/blob/main/assets/docs/changelog/2024-08-02.md"><strong>here</strong></a>.
         </div>
     </div>
     <div style="flex: 1; text-align: center; margin-left: 20px;">
