@@ -7,11 +7,11 @@ The entrance of the gradio
 import tyro
 import gradio as gr
 import os.path as osp
-from core.utils.helper import load_description
-from core.gradio_pipeline import GradioPipeline
-from core.config.crop_config import CropConfig
-from core.config.argument_config import ArgumentConfig
-from core.config.inference_config import InferenceConfig
+from liveportrait.core.utils.helper import load_description
+from liveportrait.core.gradio_pipeline import GradioPipeline
+from liveportrait.core.config.crop_config import CropConfig
+from liveportrait.core.config.argument_config import ArgumentConfig
+from liveportrait.core.config.inference_config import InferenceConfig
 import spaces
 import cv2
 
