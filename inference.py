@@ -1,10 +1,10 @@
 # coding: utf-8
 
 import tyro
-from src.config.argument_config import ArgumentConfig
-from src.config.inference_config import InferenceConfig
-from src.config.crop_config import CropConfig
-from src.live_portrait_pipeline import LivePortraitPipeline
+from liveportrait.core.config.argument_config import ArgumentConfig
+from liveportrait.core.config.inference_config import InferenceConfig
+from liveportrait.core.config.crop_config import CropConfig
+from liveportrait.core.live_portrait_pipeline import LivePortraitPipeline
 
 
 def partial_fields(target_class, kwargs):

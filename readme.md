@@ -1,5 +1,7 @@
 This is the official Space of the paper: [**LivePortrait: Efficient Portrait Animation with Stitching and Retargeting Control**](https://arxiv.org/abs/2407.03168)
 
+Installable version of the huggingface repo to be used as a module.
+
 If you find LivePortrait useful for your research, welcome to cite our work using the following BibTeX:
 ```bibtex
 @article{guo2024liveportrait,
@@ -9,4 +11,3 @@ If you find LivePortrait useful for your research, welcome to cite our work usin
   year    = {2024}
 }
 ```
-
