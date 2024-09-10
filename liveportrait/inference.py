@@ -1,5 +1,4 @@
 # coding: utf-8
-import tyro
 from liveportrait.core.config.argument_config import ArgumentConfig
 from liveportrait.core.config.inference_config import InferenceConfig
 from liveportrait.core.config.crop_config import CropConfig
@@ -47,15 +46,3 @@ class Inference:
             self.args.driving_info = driving_video
 
         return self._run_inference()
-
-def main():
-    # Set tyro theme
-    tyro.extras.set_accent_color("bright_cyan")
-    # Parse command-line arguments
-    args = tyro.cli(ArgumentConfig)
-    # Run the inference function with command-line arguments
-    result = Inference(args.source_image, args.driving_info).run()
-    return result
-
-if __name__ == '__main__':
-    main()
