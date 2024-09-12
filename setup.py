@@ -7,6 +7,7 @@ setup(
     author_email='custom@livepeerservice.world',
     description='Efficient Portrait Animation with Stitching and Retargeting Control',
     packages=find_packages(),
+    include_package_data=True,
     install_requires=[
         'tyro==0.8.5',
         'torch',

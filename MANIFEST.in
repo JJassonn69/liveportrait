@@ -1,1 +1,9 @@
-include README.md
+# Include all Python files in the liveportrait package and its subdirectories
+recursive-include liveportrait *.py
+recursive-include liveportrait *.onnx
+recursive-include liveportrait *.pth
+recursive-include liveportrait *.png
+
+# Include all files in the assets directory
+recursive-include assets *
+recursive-include liveportrait *
